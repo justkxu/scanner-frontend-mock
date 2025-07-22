@@ -1,0 +1,126 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.CommissioningStart"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="commissioningStartPage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Kommissionierung starten" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin"
+                >
+                    <core:Icon
+                        src="sap-icon://bar-code"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Transportauftrag scannen:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="taNumberInput"
+                                placeholder="TA-Nummer scannen..."
+                                value="TA-2024-001234"
+                                width="100%"
+                                submit=".onScanTA"
+                                class="sapUiMediumMarginEnd"
+                                valueState="Success"
+                                valueStateText="TA ist gültig und offen. 5 Positionen gefunden."
+                            />
+                            <Button
+                                icon="sap-icon://validate"
+                                type="Transparent"
+                                press=".onValidateTA"
+                                tooltip="TA validieren"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <VBox
+                    class="sapUiMediumMarginTop"
+                    id="taDetailsPanel"
+                    visible="true"
+                >
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="TA-Nummer:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text text="TA-2024-001234" />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Status:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text text="Offen" />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Anzahl Positionen:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text text="5" />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button icon="sap-icon://refresh" />
+                <Button icon="sap-icon://keyboard-and-mouse" />
+                <ToolbarSpacer />
+                <Button
+                    text="Weiter"
+                    type="Emphasized"
+                    icon="sap-icon://begin"
+                    press=".onStartCommissioning"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

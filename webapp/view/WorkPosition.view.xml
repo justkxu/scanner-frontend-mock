@@ -1,0 +1,197 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.WorkPosition"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="workPositionPage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Arbeitsvorrat bilden" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <HBox
+                    width="100%"
+                    class="sapUiMediumMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://product"
+                        size="3rem"
+                        class="sapUiMediumMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="TA-Position:"
+                            class="sapMLabel"
+                            required="true"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="taPositionInput"
+                                placeholder="TA-Position eingeben..."
+                                value="1001234567-001"
+                                submit=".onSubmitTAPosition"
+                                width="100%"
+                                class="sapUiMediumMarginEnd"
+                            />
+                            <Button
+                                icon="sap-icon://refresh"
+                                type="Transparent"
+                                press=".onRefreshPosition"
+                                tooltip="Position neu laden"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <VBox>
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Materialnr:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="materialNumberText"
+                            text="MAT-001234"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Mat-Kurztext:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="materialDescriptionText"
+                            text="Schrauben M8x20"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Menge:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="quantityDisplayText"
+                            text="100 ST"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Nachlagerplatz:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="fromPositionDisplayText"
+                            text="A-01-02-03"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Nachlagertyp:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="followUpTypeDisplayText"
+                            text="Einlagerung"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Bestandsqualifikation:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="stockSegmentationDisplayText"
+                            text="Verfügbar"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Charge/Bewertungsart:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="chargeEvaluationDisplayText"
+                            text="CH-2024-001"
+                        />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button icon="sap-icon://refresh" />
+                <Button icon="sap-icon://keyboard-and-mouse" />
+                <ToolbarSpacer />
+                <Button
+                    text="In Arbeitsvorrat aufnehmen"
+                    type="Emphasized"
+                    icon="sap-icon://add"
+                    press=".onShowQuittierungDialog"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

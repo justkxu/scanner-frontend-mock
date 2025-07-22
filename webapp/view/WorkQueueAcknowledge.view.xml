@@ -1,0 +1,309 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.WorkQueueAcknowledge"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="workQueueAcknowledgePage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Arbeitsvorrat quittieren" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <HBox
+                    width="100%"
+                    class="sapUiMediumMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://accept"
+                        size="3rem"
+                        class="sapUiMediumMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="TA-Position auswählen:"
+                            class="sapMLabel"
+                        />
+                        <ComboBox
+                            id="positionComboBox"
+                            selectedKey="pos1"
+                            items="{/positions}"
+                            selectionChange=".onPositionSelectionChange"
+                            width="100%"
+                        >
+                            <items>
+                                <core:Item
+                                    key="pos1"
+                                    text="1001234567-001 (A-01-02-03)"
+                                />
+                                <core:Item
+                                    key="pos2"
+                                    text="1001234567-002 (B-02-03-04)"
+                                />
+                                <core:Item
+                                    key="pos3"
+                                    text="1001234567-003 (C-03-04-05)"
+                                />
+                            </items>
+                        </ComboBox>
+                    </VBox>
+                </HBox>
+
+                <VBox class="sapUiMediumMarginBottom">
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Materialnr:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="materialNrText"
+                            text="MAT-001234"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Mat-Kurztext:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="materialDescText"
+                            text="Schrauben M8x20"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Menge:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="plannedQuantityText"
+                            text="100 ST"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Bestandsqualifikation:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text text="Verfügbar" />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Charge/Bewertungsart:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text text="CH-2024-001" />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Nachlagerplatz:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text
+                            id="destinationPlaceText"
+                            text="A-01-02-03"
+                        />
+                    </HBox>
+
+                    <HBox
+                        width="100%"
+                        alignItems="Center"
+                        class="sapUiSmallMarginBottom"
+                    >
+                        <Label
+                            text="Nachlagertyp:"
+                            class="sapUiMediumMarginEnd"
+                            width="140px"
+                        />
+                        <Text text="Einlagerung" />
+                    </HBox>
+                </VBox>
+
+                <Dialog
+                    id="acknowledgmentDialog"
+                    title="TA-Position quittieren"
+                    type="Message"
+                    state="Information"
+                >
+                    <content>
+                        <VBox class="sapUiTinyMargin">
+                            <VBox
+                                width="100%"
+                                class="sapUiTinyMarginBottom"
+                            >
+                                <Label
+                                    text="Menge:"
+                                    class="sapMLabel sapUiTinyMarginBottom"
+                                />
+                                <HBox
+                                    width="100%"
+                                    alignItems="Center"
+                                    class="sapUiTinyMarginBottom"
+                                >
+                                    <Input
+                                        id="quantityInputWorkQueue"
+                                        placeholder="Menge..."
+                                        value="100"
+                                        valueState="Success"
+                                        valueStateText="Menge bestätigt"
+                                        width="90%"
+                                        type="Number"
+                                        liveChange=".onQuantityChange"
+                                    />
+                                    <Text
+                                        text="ST"
+                                        class="sapUiTinyMarginBegin"
+                                    />
+                                </HBox>
+                                <VBox
+                                    id="differenceCodeSection"
+                                    visible="false"
+                                    class="sapUiTinyMarginTop"
+                                >
+                                    <Label
+                                        text="Differenzkennzeichen:"
+                                        class="sapMLabel sapUiTinyMarginBottom"
+                                    />
+                                    <ComboBox
+                                        id="differenceCodeComboBox"
+                                        placeholder="Kennzeichen auswählen..."
+                                        width="100%"
+                                    >
+                                        <items>
+                                            <core:Item
+                                                key="+"
+                                                text="+ Mehr"
+                                            />
+                                            <core:Item
+                                                key="-"
+                                                text="- Weniger"
+                                            />
+                                            <core:Item
+                                                key="D"
+                                                text="D Defekt"
+                                            />
+                                            <core:Item
+                                                key="F"
+                                                text="F Fehlend"
+                                            />
+                                        </items>
+                                    </ComboBox>
+                                </VBox>
+                            </VBox>
+
+                            <VBox
+                                width="100%"
+                                class="sapUiTinyMarginBottom"
+                            >
+                                <Label
+                                    text="Nachlagerplatz:"
+                                    class="sapMLabel sapUiTinyMarginBottom"
+                                />
+                                <HBox
+                                    width="100%"
+                                    alignItems="Center"
+                                >
+                                    <Input
+                                        id="dialogDestinationPlaceInput"
+                                        placeholder="Lagerplatz eingeben..."
+                                        value="A-01-02-03"
+                                        valueState="Success"
+                                        valueStateText="Lagerplatz verfügbar"
+                                        width="100%"
+                                        class="sapUiMediumMarginEnd"
+                                    />
+                                    <Button
+                                        icon="sap-icon://validate"
+                                        type="Transparent"
+                                        press=".onCheckDialogDestinationPlace"
+                                        tooltip="Lagerplatz prüfen"
+                                    />
+                                </HBox>
+                            </VBox>
+                        </VBox>
+                    </content>
+                    <beginButton>
+                        <Button
+                            text="Quittieren"
+                            type="Emphasized"
+                            press=".onAcceptAcknowledgment"
+                        />
+                    </beginButton>
+                    <endButton>
+                        <Button
+                            text="Abbrechen"
+                            press=".onCancelAcknowledgment"
+                        />
+                    </endButton>
+                </Dialog>
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button icon="sap-icon://refresh" />
+                <Button icon="sap-icon://keyboard-and-mouse" />
+
+                <ToolbarSpacer />
+                <Button
+                    text="TA-Position quittieren"
+                    type="Emphasized"
+                    icon="sap-icon://accept"
+                    press=".onShowAcknowledgmentDialog"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,104 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="workplaceControlDialog"
+        title="Arbeitsplatz-Kontrolle"
+        contentWidth="450px"
+        resizable="false"
+        draggable="false"
+    >
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <!-- TA Information -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://task"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="TA-Nummer:"
+                            width="140px"
+                        />
+                        <Text text="{workplaceDialog>/taNumber}" />
+                    </VBox>
+                </HBox>
+
+                <!-- Expected Workplace -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://locate-me"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Soll-Arbeitsplatz:"
+                            width="140px"
+                        />
+                        <Text text="{workplaceDialog>/expectedWorkplace}" />
+                    </VBox>
+                </HBox>
+
+                <!-- Workplace Input -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://bar-code"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Arbeitsplatz scannen:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="workplaceDialogInput"
+                                placeholder="Arbeitsplatz scannen..."
+                                value="AP-FINAL-001"
+                                width="100%"
+                                liveChange=".onWorkplaceDialogLiveChange"
+                                submit=".onValidateWorkplaceDialog"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Button
+                                icon="sap-icon://validate"
+                                type="Transparent"
+                                press=".onValidateWorkplaceDialog"
+                                tooltip="Arbeitsplatz validieren"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Abbrechen"
+                press=".onCancelWorkplaceControl"
+            />
+            <Button
+                text="Bestätigen"
+                type="Emphasized"
+                press=".onConfirmWorkplaceControl"
+                enabled="{workplaceDialog>/validated}"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

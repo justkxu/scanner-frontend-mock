@@ -1,0 +1,44 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.Messages"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="Meldungen"
+        id="MessagePage"
+        class="sapUiContentPadding"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <content>
+            <VBox class="sapUiMediumMargin">
+                <Button
+                    text="TA-Position nicht gefunden"
+                    type="Emphasized"
+                    icon="sap-icon://warning"
+                    width="100%"
+                    press=".onPressTransportOrderNotFound"
+                    class="sapUiMediumMarginBottom"
+                />
+                <Button
+                    text="bereits im quittierten Zustand"
+                    type="Emphasized"
+                    icon="sap-icon://warning"
+                    width="100%"
+                    press=".onPressAlreadyAcknowledged"
+                    class="sapUiMediumMarginBottom"
+                />
+                <Button
+                    text="nicht im Verfügbaren Bestand"
+                    type="Emphasized"
+                    icon="sap-icon://warning"
+                    width="100%"
+                    press=".onPressNotInAvailableStock"
+                    class="sapUiMediumMarginBottom"
+                />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

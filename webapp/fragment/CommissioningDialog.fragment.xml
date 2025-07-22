@@ -1,0 +1,256 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="commissioningDialog"
+        title="Kommissionierung"
+        contentWidth="450px"
+        resizable="false"
+        draggable="false"
+    >
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <!-- Location Verification -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://locate-me"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Lagerplatz bestätigen:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="commissioningDialogLocationInput"
+                                placeholder="Lagerplatz scannen..."
+                                value=""
+                                width="100%"
+                                liveChange=".onLocationLiveChange"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Button
+                                icon="sap-icon://validate"
+                                type="Transparent"
+                                press=".onConfirmLocation"
+                                tooltip="Lagerplatz bestätigen"
+                                visible="false"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Material Verification -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://product"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Material bestätigen:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="commissioningDialogMaterialInput"
+                                placeholder="Material scannen..."
+                                value=""
+                                width="100%"
+                                liveChange=".onMaterialLiveChange"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Button
+                                icon="sap-icon://validate"
+                                type="Transparent"
+                                press=".onConfirmMaterial"
+                                tooltip="Material bestätigen"
+                                visible="false"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Quantity Verification -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://number-sign"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Menge bestätigen:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="commissioningDialogQuantityInput"
+                                placeholder="Menge eingeben..."
+                                value=""
+                                width="100%"
+                                liveChange=".onQuantityLiveChange"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Button
+                                icon="sap-icon://validate"
+                                type="Transparent"
+                                press=".onConfirmQuantity"
+                                visible="false"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Difference Code (only visible when quantity differs) -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                    visible="{dialog>/quantityDiffers}"
+                >
+                    <core:Icon
+                        src="sap-icon://warning"
+                        size="3rem"
+                        color="Critical"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Differenzkennzeichen:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Select
+                                id="commissioningDialogDifferenceCodeSelect"
+                                width="100%"
+                                selectedKey="{dialog>/differenceCode}"
+                                change=".onDifferenceCodeSelectionChange"
+                            >
+                                <core:Item
+                                    key=""
+                                    text="Bitte wählen..."
+                                />
+                                <core:Item
+                                    key="01"
+                                    text="01 - Fehlmenge"
+                                />
+                                <core:Item
+                                    key="02"
+                                    text="02 - Beschädigung"
+                                />
+                                <core:Item
+                                    key="03"
+                                    text="03 - Falsche Charge"
+                                />
+                                <core:Item
+                                    key="04"
+                                    text="04 - Qualitätsmangel"
+                                />
+                                <core:Item
+                                    key="05"
+                                    text="05 - Sonstiges"
+                                />
+                            </Select>
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Serial Numbers -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin"
+                    visible="{dialog>/serialRequired}"
+                >
+                    <core:Icon
+                        src="sap-icon://bar-code"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Seriennummern:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                            class="sapUiTinyMarginBottom"
+                        >
+                            <Button
+                                id="openSerialScanButton"
+                                text="Seriennummern scannen"
+                                icon="sap-icon://bar-code"
+                                type="Emphasized"
+                                width="100%"
+                                press=".onOpenSerialNumberScan"
+                            />
+                        </HBox>
+
+                        <!-- Serial Numbers Summary -->
+                        <HBox
+                            alignItems="Center"
+                            justifyContent="SpaceBetween"
+                            class="sapUiTinyMarginTop"
+                            visible="{= ${dialog>/serialNumbers}.length > 0}"
+                        >
+                            <HBox alignItems="Center">
+                                <core:Icon
+                                    src="sap-icon://accept"
+                                    color="Positive"
+                                    size="1rem"
+                                    class="sapUiTinyMarginEnd"
+                                />
+                                <Text
+                                    text="{= ${dialog>/serialNumbers}.length + ' Seriennummern gescannt'}"
+                                />
+                            </HBox>
+                            <Button
+                                text="Bearbeiten"
+                                type="Transparent"
+                                press=".onOpenSerialNumberScan"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </content>
+        <buttons>
+            <Button
+                text="Abbrechen"
+                press=".onCancelCommissioning"
+            />
+            <Button
+                id="completeButton"
+                text="Abschließen"
+                type="Emphasized"
+                press=".onCompleteCommissioning"
+                enabled="false"
+            />
+        </buttons>
+    </Dialog>
+</core:FragmentDefinition>

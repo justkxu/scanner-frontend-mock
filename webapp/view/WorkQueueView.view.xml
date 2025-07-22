@@ -1,0 +1,238 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.WorkQueueView"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="workQueueViewPage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Arbeitsvorrat einsehen" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <!-- Position Selection -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin"
+                >
+                    <core:Icon
+                        src="sap-icon://menu"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Arbeitsvorrat Position auswählen:"
+                            width="140px"
+                        />
+                        <ComboBox
+                            id="workQueueComboBox"
+                            items="{/workQueuePositions}"
+                            selectionChange=".onPositionSelectionChange"
+                            width="100%"
+                            placeholder="Position auswählen..."
+                        >
+                            <core:Item
+                                key="{taPosition}"
+                                text="{taPosition} - {materialDesc} ({quantity})"
+                            />
+                        </ComboBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Position Details - Always Visible -->
+
+                <VBox class="sapUiMediumMarginTop">
+                    <!-- TA Position -->
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="TA-Position:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedTaPositionText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <!-- Material Information -->
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Materialnr:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedMaterialNrText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Mat-Kurztext:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedMaterialDescText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Menge:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedQuantityText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <!-- Storage Information -->
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Nachlagerplatz:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedStorageLocationText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Nachfolgetyp:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedFollowUpTypeText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Bestandsqualifikation:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedStockQualificationText"
+                            text=""
+                        />
+                    </HBox>
+
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Charge/Evaluation:"
+                            width="140px"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <Text
+                            id="selectedChargeEvaluationText"
+                            text=""
+                        />
+                    </HBox>
+                </VBox>
+
+                <!-- Action Dialog -->
+                <Dialog
+                    id="actionDialog"
+                    title="Aktion auswählen"
+                    type="Message"
+                    state="Information"
+                >
+                    <content>
+                        <VBox class="sapUiTinyMargin">
+                            <Text
+                                text="Was möchten Sie mit der ausgewählten Position tun?"
+                            />
+                        </VBox>
+                    </content>
+                    <beginButton>
+                        <Button
+                            text="Position entfernen"
+                            type="Reject"
+                            icon="sap-icon://delete"
+                            press=".onRemovePositionFromDialog"
+                        />
+                    </beginButton>
+                    <endButton>
+                        <Button
+                            text="Zur Quittierung"
+                            type="Emphasized"
+                            icon="sap-icon://accept"
+                            press=".onNavigateToAcknowledgeFromDialog"
+                        />
+                    </endButton>
+                </Dialog>
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button
+                    icon="sap-icon://refresh"
+                    press=".onRefreshWorkQueue"
+                />
+                <Button icon="sap-icon://keyboard-and-mouse" />
+                <ToolbarSpacer />
+                <Button
+                    text="Weiter"
+                    type="Emphasized"
+                    icon="sap-icon://nav-forward"
+                    press=".onShowActionDialog"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

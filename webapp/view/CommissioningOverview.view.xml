@@ -1,0 +1,131 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.CommissioningOverview"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="commissioningOverviewPage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Kommissionierungsübersicht" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <!-- TA Info Header -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin sapUiTinyMarginBottom"
+                >
+                    <core:Icon
+                        src="sap-icon://task"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Transportauftrag:"
+                            width="140px"
+                        />
+                        <Text
+                            text="TA-2024-001234"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text text="5 Positionen zu kommissionieren" />
+                    </VBox>
+                </HBox>
+
+                <!-- Positions Table -->
+                <HBox
+                    justifyContent="Center"
+                    width="100%"
+                >
+                    <Table
+                        id="positionsTable"
+                        items="{/positions}"
+                        mode="None"
+                        growing="false"
+                        sticky="ColumnHeaders"
+                        width="auto"
+                    >
+                        <columns>
+                            <Column width="3rem">
+                                <Text text="Pos" />
+                            </Column>
+                            <Column width="8rem">
+                                <Text text="Material" />
+                            </Column>
+                            <Column
+                                width="5rem"
+                                hAlign="Center"
+                            >
+                                <Text text="Menge" />
+                            </Column>
+                            <Column width="7rem">
+                                <Text text="Lagerplatz" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem press=".onPositionPress">
+                                <cells>
+                                    <Text text="{positionNumber}" />
+                                    <VBox>
+                                        <Text text="{material}" />
+                                        <Text
+                                            text="{materialText}"
+                                            maxLines="1"
+                                            class="sapThemeTextColorSecondary"
+                                        />
+                                    </VBox>
+                                    <VBox alignItems="Center">
+                                        <Text text="{quantity}" />
+                                        <Text
+                                            text="{unit}"
+                                            class="sapThemeTextColorSecondary"
+                                        />
+                                    </VBox>
+                                    <VBox>
+                                        <Text text="{locationFrom}" />
+                                        <Text
+                                            text="→ {locationTo}"
+                                            class="sapThemeTextColorSecondary"
+                                        />
+                                    </VBox>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </HBox>
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button icon="sap-icon://refresh" />
+                <Button icon="sap-icon://keyboard-and-mouse" />
+                <ToolbarSpacer />
+                <Button
+                    text="Kommissionierung starten"
+                    type="Emphasized"
+                    icon="sap-icon://begin"
+                    press=".onStartCommissioning"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

@@ -1,0 +1,99 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="userDialog"
+        title="Benutzer-Einstellungen"
+        type="Message"
+        state="Information"
+        contentWidth="400px"
+    >
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <!-- Version -->
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label
+                        text="Version:"
+                        class="sapMLabel sapUiTinyMarginBottom"
+                    />
+                    <Text
+                        text="{user>/version}"
+                        class="sapThemeHighlight-asColor"
+                    />
+                </VBox>
+
+                <!-- Benutzer -->
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label
+                        text="Benutzer:"
+                        class="sapMLabel sapUiTinyMarginBottom"
+                    />
+                    <VBox>
+                        <Text
+                            text="{user>/user}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{user>/userName}"
+                            class="sapThemeTextColorSecondary"
+                        />
+                    </VBox>
+                </VBox>
+
+                <!-- Werk -->
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label
+                        text="Werk:"
+                        class="sapMLabel sapUiTinyMarginBottom"
+                    />
+                    <VBox>
+                        <Text
+                            text="{user>/plant}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{user>/plantDescription}"
+                            class="sapThemeTextColorSecondary"
+                        />
+                    </VBox>
+                </VBox>
+
+                <!-- Lager -->
+                <VBox class="sapUiTinyMarginBottom">
+                    <Label
+                        text="Lager:"
+                        class="sapMLabel sapUiTinyMarginBottom"
+                    />
+                    <VBox>
+                        <Text
+                            text="{user>/warehouse}"
+                            class="sapUiTinyMarginBottom"
+                        />
+                        <Text
+                            text="{user>/warehouseDescription}"
+                            class="sapThemeTextColorSecondary"
+                        />
+                    </VBox>
+                </VBox>
+
+                <!-- Logout Button -->
+                <VBox class="sapUiTinyMarginTop">
+                    <Button
+                        text="Logout"
+                        type="Emphasized"
+                        icon="sap-icon://log"
+                        width="100%"
+                        press=".onLogout"
+                    />
+                </VBox>
+            </VBox>
+        </content>
+        <endButton>
+            <Button
+                text="Schließen"
+                press=".onCloseUserDialog"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

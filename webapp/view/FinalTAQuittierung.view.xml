@@ -1,0 +1,128 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.FinalTAQuittierung"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="finalTAQuittierungPage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="TA final quittieren" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <VBox class="sapUiTinyMargin">
+                <!-- TA Scan Section -->
+                <HBox
+                    alignItems="Center"
+                    class="sapUiTinyMargin"
+                >
+                    <core:Icon
+                        src="sap-icon://bar-code"
+                        size="3rem"
+                        class="sapUiTinyMarginEnd"
+                    />
+                    <VBox width="100%">
+                        <Label
+                            text="Transportauftrag:"
+                            width="140px"
+                        />
+                        <HBox
+                            width="100%"
+                            alignItems="Center"
+                        >
+                            <Input
+                                id="taInput"
+                                placeholder="TA-Nummer scannen..."
+                                value="TA-2024-001234"
+                                valueState="Success"
+                                width="100%"
+                                liveChange=".onTALiveChange"
+                                submit=".onValidateTA"
+                                class="sapUiTinyMarginEnd"
+                            />
+                            <Button
+                                icon="sap-icon://validate"
+                                type="Transparent"
+                                press=".onValidateTA"
+                                tooltip="TA validieren"
+                            />
+                        </HBox>
+                    </VBox>
+                </HBox>
+
+                <VBox
+                    id="taDetailsSection"
+                    class="sapUiTinyMarginTop"
+                    visible="true"
+                >
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="TA-Nummer:"
+                            width="140px"
+                            class="sapUiTinyMarginEnd"
+                        />
+                        <Text
+                            id="taNumberText"
+                            text="TA-2024-001234"
+                        />
+                    </HBox>
+                </VBox>
+                <VBox
+                    id="workplaceControlSection"
+                    class="sapUiTinyMarginTop"
+                    visible="true"
+                >
+                    <HBox
+                        alignItems="Center"
+                        class="sapUiTinyMargin"
+                    >
+                        <Label
+                            text="Soll-Arbeitsplatz:"
+                            width="140px"
+                            class="sapUiTinyMarginEnd"
+                        />
+                        <Text
+                            id="expectedWorkplaceText"
+                            text="AP-FINAL-001"
+                        />
+                    </HBox>
+                </VBox>
+            </VBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button icon="sap-icon://refresh" />
+                <Button icon="sap-icon://keyboard-and-mouse" />
+                <ToolbarSpacer />
+                <Button
+                    id="finalAcknowledgeButton"
+                    text="TA final quittieren"
+                    type="Emphasized"
+                    icon="sap-icon://accept"
+                    press=".onFinalAcknowledge"
+                    visible="true"
+                />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

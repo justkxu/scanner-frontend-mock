@@ -1,0 +1,82 @@
+<mvc:View
+    controllerName="inw.mockup.ewm.controller.GoodsReceipt"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+>
+    <Page
+        title="{i18n>appTitle}"
+        id="goodsReceiptPage"
+        class="sapUiContentPadding"
+    >
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button
+                        type="Back"
+                        press=".onNavBack"
+                    />
+                </contentLeft>
+                <contentMiddle>
+                    <Title text="Wareneingang" />
+                </contentMiddle>
+                <contentRight>
+                    <core:Icon src="sap-icon://customer" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <content>
+            <FlexBox
+                wrap="Wrap"
+                justifyContent="SpaceBetween"
+                gap="5px"
+            >
+                <VBox width="49%">
+                    <GenericTile
+                        width="100%"
+                        header="Arbeitsvorrat aufbauen"
+                        press=".onPressWorkPositionBuilder"
+                    >
+                        <TileContent>
+                            <core:Icon
+                                size="4em"
+                                src="sap-icon://product"
+                            />
+                        </TileContent>
+                    </GenericTile>
+                </VBox>
+                <VBox width="49%">
+                    <GenericTile
+                        width="100%"
+                        header="Arbeitsvorrat quittieren"
+                        press=".onPressWorkQueueAcknowledge"
+                    >
+                        <TileContent>
+                            <core:Icon
+                                size="4em"
+                                src="sap-icon://receipt"
+                            />
+                        </TileContent>
+                    </GenericTile>
+                </VBox>
+                <VBox width="49%">
+                    <GenericTile
+                        width="100%"
+                        header="Arbeitsvorrat anzeigen"
+                        press=".onPressWorkQueueView"
+                    >
+                        <TileContent footer="Positionen im Vorrat">
+                            <NumericContent value="10" />
+                        </TileContent>
+                    </GenericTile>
+                </VBox>
+            </FlexBox>
+        </content>
+        <footer>
+            <Toolbar>
+                <Button icon="sap-icon://refresh" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>
