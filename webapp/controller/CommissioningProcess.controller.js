@@ -72,6 +72,51 @@ sap.ui.define([
             }
         },
 
+        _resetProgress: function () {
+            // Reset position tracking to start from beginning
+            this._positionIndex = 1;
+
+            // Reset dialog state model
+            const oDialogModel = this.getView().getModel("dialog");
+            if (oDialogModel) {
+                oDialogModel.setData({
+                    serialNumbers: [],
+                    locationConfirmed: false,
+                    materialConfirmed: false,
+                    quantityConfirmed: false,
+                    serialNumbersConfirmed: false,
+                    serialRequired: false,
+                    quantityDiffers: false,
+                    differenceCode: "",
+                    differenceCodeConfirmed: false
+                });
+            }
+
+            // Reset serial scan dialog model
+            const oScanDialogModel = this.getView().getModel("scanDialog");
+            if (oScanDialogModel) {
+                oScanDialogModel.setData({
+                    serialNumbers: [],
+                    materialText: "",
+                    requiredQuantity: 0,
+                    scannedCount: 0
+                });
+            }
+
+            // Reset to first position
+            this._currentPosition = {
+                number: "TA-2024-001234-001",
+                location: "A-01-02-03",
+                material: "MAT-001234",
+                materialText: "Schrauben M8x20",
+                targetQuantity: 100,
+                unit: "ST",
+                serialRequired: false
+            };
+
+            console.log("Progress reset - back to position 1");
+        },
+
         _onRouteMatched: function (oEvent) {
             const oArgs = oEvent.getParameter("arguments");
             console.log("Route matched with arguments:", oArgs);
@@ -85,6 +130,9 @@ sap.ui.define([
                 if (this._positionIndex > 1) {
                     this._loadPositionByIndex(this._positionIndex);
                 }
+            } else {
+                // No position parameter - reset to start from beginning
+                this._resetProgress();
             }
 
             // Update header title after setting position
@@ -188,6 +236,9 @@ sap.ui.define([
         },
 
         onNavBack: function () {
+            // Reset progress when navigating back manually
+            this._resetProgress();
+
             const oRouter = this.getOwnerComponent().getRouter();
             oRouter.navTo("commissioningOverview");
         },
@@ -690,6 +741,9 @@ sap.ui.define([
                 actions: [MessageBox.Action.OK],
                 emphasizedAction: MessageBox.Action.OK,
                 onClose: () => {
+                    // Reset progress before navigating back
+                    this._resetProgress();
+
                     const oRouter = this.getOwnerComponent().getRouter();
                     oRouter.navTo("main");
                 }

@@ -78,9 +78,9 @@ sap.ui.define([
         },
 
         _onRouteMatched: function () {
-            console.log("CommissioningOverview route matched - waiting for user action");
-            // Just log that we've arrived at the overview page
-            // No automatic navigation - wait for user to press "Kommissionierung starten"
+            console.log("CommissioningOverview route matched - staying on overview page");
+            // User must click 'Kommissionierung starten' button to proceed
+            // No automatic navigation happening here
         },
 
         onNavBack: function () {
@@ -96,11 +96,11 @@ sap.ui.define([
         },
 
         onPositionPress: function (oEvent) {
-            // Remove automatic navigation - let user decide when to start commissioning
-            // Just show which position was selected
+            // Position selection - NO automatic navigation
+            // User must use the "Kommissionierung starten" button in footer
             const oBindingContext = oEvent.getSource().getBindingContext();
             const sPosition = oBindingContext.getProperty("positionNumber");
-            console.log("Position " + sPosition + " selected - but not navigating automatically");
+            console.log("Position " + sPosition + " selected - waiting for user to start commissioning via button");
         }
     });
 });
